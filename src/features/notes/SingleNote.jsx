@@ -46,7 +46,7 @@ function SingleNote() {
 
   return (
     <div className="h-full">
-     
+      <div className="flex flex-1 flex-col h-full">
         <div className="flex flex-col">
           <div className="bg-white p-4 pb-0 justify-between items-center flex">
             <Link
@@ -83,7 +83,7 @@ function SingleNote() {
           value={content}
           onChange={(e) => setContent(e.target.value)}
         />
-
+      </div>
 
       {/* <button onClick={onDelete}>Delete</button> */}
     </div>
