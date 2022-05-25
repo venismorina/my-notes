@@ -19,27 +19,12 @@ const notesSlice = createSlice({
             reducer(state, action) {
                 state.push(action.payload);
             },
-            prepare(data){
+            prepare(id){
                 return {
                     payload: {
-                        id: nanoid(),
-                        title: data.title,
-                        content: data.content
-                    }
-                }
-            }
-        },
-        noteEdited: {
-            reducer(state, action) {
-                const index = state.findIndex(note => note.id === action.payload.id);
-                state[index] = action.payload;
-            },
-            prepare(data){
-                return {
-                    payload: {
-                        id: data.id,
-                        title: data.title,
-                        content: data.content
+                        id,
+                        title: "New note",
+                        content: ""
                     }
                 }
             }
@@ -49,13 +34,28 @@ const notesSlice = createSlice({
                 const index = state.findIndex(note => note.id === action);
                 state.splice(index);
             }
-        }
+        },
+        noteValueChanged: {
+            reducer(state, action) {
+                const index = state.findIndex(note => note.id === action.payload.id);
+                if(index >= 0) state[index][action.payload.field] = action.payload.value;
+            },
+            prepare(id, field, value){
+                return {
+                    payload: {
+                        id,
+                        field,
+                        value
+                    }
+                }
+            }
+        },
     }
 })
 
 export const selectAllNotes = (state) => state.notes;
 export const selectNoteById = (state, id) => state.notes.find(note => note.id === id);
 
-export const { noteAdded, noteEdited, noteDeleted } = notesSlice.actions;
+export const { noteAdded, noteDeleted, noteValueChanged } = notesSlice.actions;
 
 export default notesSlice.reducer

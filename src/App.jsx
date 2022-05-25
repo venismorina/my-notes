@@ -9,12 +9,14 @@ import { Routes, Route } from 'react-router-dom'
 
 function App() {
 
+  
+
   return (
     <Routes>
       <Route path='/' element={<Layout />}>
         <Route index element={<NotesList/>}></Route>
         <Route path="note">
-          <Route index element={<AddNotes />}></Route>
+          {/* <Route index element={<AddNotes />}></Route> */}
           <Route path=':id' element={<SingleNote />}></Route>
         </Route>
       </Route>
